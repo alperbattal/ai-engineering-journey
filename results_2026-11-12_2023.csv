@@ -1,0 +1,18 @@
+﻿question,expected,answer,result
+What is the capital of France?,Paris,The capital of France is **Paris**.,PASS
+What is the largest planet in our solar system?,Jupiter,"**Jupiter** is the largest planet in our solar system. Some key facts:
+
+- **Diameter:** About 142,000 km (88,000 miles) at the equator, roughly 11 times wider than Earth
+- **Mass:** About 318 times that of Earth, and more than twice the combined mass of all the other planets
+- **Type:** Gas giant, made mostly of hydrogen and helium
+- **Notable features:** The Great Red Spot, a giant storm that has lasted for centuries, and a faint ring system
+- **Moons:** It has dozens of known moons, including the four large Galilean moons: Io, Europa, Ganymede, and Callisto
+
+Jupiter is so large that more than 1,300 Earths could fit inside it by volume.",PASS
+Who wrote 'Pride and Prejudice'?,Jane Austen,*Pride and Prejudice* was written by **Jane Austen** and published in 1813. It's one of the best-loved novels in English literature. It follows Elizabeth Bennet and her complicated relationship with the wealthy Mr. Darcy.,PASS
+What is the boiling point of water in Celsius?,100,"The boiling point of water is **100°C** at standard atmospheric pressure (1 atmosphere, or sea level).
+
+At higher altitudes, where air pressure is lower, water boils at a lower temperature. For example, in Denver, Colorado (about 1,600 m elevation), water boils at roughly 95°C.",PASS
+What is the speed of light in km per second?,"299,792","The speed of light in a vacuum is **299,792.458 km/s**, which is usually rounded to about **300,000 km/s**.
+
+This value is exact by definition, because the meter is defined from the speed of light. Light travels slightly slower in materials such as air, water, or glass.",PASS
