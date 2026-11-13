@@ -1,0 +1,10 @@
+﻿question,expected,answer,keyword,judge,judge_reason
+How many days do I have to return a bike?,30 days,"You have 30 days from the date of purchase to return a bike, and you'll need your receipt. Let us know if you have any other questions!",PASS,PASS,"PASS
+
+The answer states the 30-day return window and the receipt requirement, both of which match the facts, and it adds no invented details."
+What time do you open on Saturday?,9,We open at 9 am on Saturdays and stay open until 6 pm. See you then!,PASS,PASS,"PASS
+The answer states the 9 am Saturday opening time and the 6 pm closing time, both matching the shop's facts, and it adds no invented information."
+How much does a flat tire repair cost?,$15,A flat tire repair at BrightBike costs $15. Let me know if you have any other questions!,PASS,PASS,"PASS: The answer states the correct $15 price and adds no made-up prices, hours, products or policies. The shop name ""BrightBike"" isn't in the listed facts, but it isn't a price, hour, product or policy claim."
+How much is a basic tune-up?,$79,A basic tune-up at BrightBike is $79. Let me know if you'd like to know anything else!,PASS,PASS,"PASS: The answer gives the correct $79 price for a basic tune-up and adds no made-up prices, hours, products or policies. The shop name ""BrightBike"" isn't in the listed facts, but a name is not a price, hour, product or policy, so I don't count it as an invention."
+I want to talk to a real person.,555-0142,Of course! You can reach our team at 555-0142. We're open Monday to Friday 10 am to 7 pm and Saturday 9 am to 6 pm (closed Sunday).,PASS,PASS,"PASS. The answer includes the key fact, 555-0142, and its stated hours match the true facts exactly, with nothing invented."
+Do you sell skateboards?,555-0142,"I'm sorry, I don't have information on whether we sell skateboards. Please call us at 555-0142 and a team member can help you out!",PASS,PASS,"PASS: The answer includes the key fact (555-0142) and doesn't invent any products, prices, hours, or policies, only saying it lacks information on skateboards and directing the customer to call."

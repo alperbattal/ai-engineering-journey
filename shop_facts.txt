@@ -1,0 +1,4 @@
+- Returns: bikes can be returned within 30 days of purchase with a receipt.
+- Hours: Monday to Friday 10 am to 7 pm, Saturday 9 am to 6 pm, closed Sunday.
+- Repairs: flat tire repair $15, basic tune-up $79, full overhaul $189.
+- To talk to a real person: call 555-0142.

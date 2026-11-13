@@ -1,0 +1,12 @@
+﻿question,expected,answer,keyword,judge,judge_reason
+How many days do I have to return a bike?,30 days,"You have 30 days from the purchase date to return a bike, and you'll need your receipt. If you have any other questions, call us at 555-0142.",PASS,PASS,"PASS
+The answer states the 30-day return window and the receipt requirement, and the phone number 555-0142 is accurate, with nothing invented."
+What time do you open on Saturday?,9,We open at 9 am on Saturday and stay open until 6 pm. Anything else I can help with?,PASS,PASS,"PASS
+The answer states the correct Saturday opening time of 9 am, and the closing time of 6 pm also matches the shop's hours, with nothing invented."
+How much does a flat tire repair cost?,$15,A flat tire repair costs $15. Let me know if you'd like to know anything else!,PASS,PASS,"PASS
+The answer states the correct $15 price for a flat tire repair and adds no invented prices, hours, products, or policies."
+How much is a basic tune-up?,$79,A basic tune-up is $79. Let me know if you'd like to know anything else!,PASS,PASS,"PASS
+The answer states the correct $79 price for a basic tune-up and adds no invented prices, hours, products, or policies."
+I want to talk to a real person.,555-0142,"Of course! You can reach a real person by calling 555-0142. Our hours are Monday to Friday 10 am to 7 pm, Saturday 9 am to 6 pm, and we're closed Sunday.",PASS,PASS,"PASS: The answer includes the key fact (555-0142) and the hours it adds match the shop's true hours, with nothing invented."
+Do you sell skateboards?,555-0142,I don't have information on whether we carry skateboards. Please call us at 555-0142 and our team can tell you for sure.,PASS,PASS,"PASS
+The answer includes the key phone number 555-0142 and invents nothing, honestly saying it lacks information about skateboards and directing the customer to call."

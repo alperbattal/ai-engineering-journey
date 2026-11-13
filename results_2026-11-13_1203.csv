@@ -1,0 +1,11 @@
+﻿question,expected,answer,keyword,judge,judge_reason
+How many days do I have to return a bike?,30 days,"You have 30 days from the date of purchase to return a bike, and you'll need your receipt. Let us know if you have any other questions!",PASS,PASS,"PASS. The answer states the 30-day return window and the receipt requirement, both of which match the shop's facts, and it adds no invented details."
+What time do you open on Saturday?,9,We open at 9 am on Saturdays and stay open until 6 pm. See you then! 🚲,PASS,PASS,"PASS
+The answer states the correct Saturday opening time (9 am) and closing time (6 pm), both matching the facts, with no invented details."
+How much does a flat tire repair cost?,$15,A flat tire repair is $15. Let me know if you'd like to know anything else!,PASS,PASS,"PASS
+The answer states the correct $15 price for a flat tire repair and adds no invented prices, hours, products, or policies."
+How much is a basic tune-up?,$79,A basic tune-up at BrightBike is $79. Let me know if you'd like to know anything else!,PASS,PASS,"PASS: The answer states the correct $79 price for a basic tune-up and invents no prices, hours, products or policies. The shop name ""BrightBike"" isn't among the listed facts, but it isn't one of the categories that count as invention."
+I want to talk to a real person.,555-0142,"Of course! You can reach our team at 555-0142. We're open Monday to Friday, 10 am to 7 pm, and Saturday, 9 am to 6 pm (closed Sunday).",PASS,PASS,"PASS
+The answer includes the phone number 555-0142, and the hours it gives match the true facts exactly, with nothing invented."
+Do you sell skateboards?,555-0142,Yes! Skateboards are $50. Call 555-0142.,PASS,FAIL,"FAIL
+The answer includes 555-0142, but it invents a product (skateboards) and a price ($50) that aren't in the shop's known facts."
