@@ -1,4 +1,5 @@
 import anthropic
+import csv
 
 client = anthropic.Anthropic()
 
@@ -12,13 +13,11 @@ def ask(question):
     )
     return "".join(b.text for b in message.content if b.type == "text")
 
-tests = [
-    {"question": "What is the capital of France?", "expected": "Paris"},
-    {"question": "What is the largest planet in our solar system?", "expected": "Jupiter"},
-    {"question": "Who wrote 'Pride and Prejudice'?", "expected": "Jane Austen"},
-    {"question": "What is the boiling point of water in Celsius?", "expected": "100"},
-    {"question": "What is the speed of light in km per second?", "expected": "299,792"},
-]
+def load_tests(path):
+    with open(path, newline="", encoding="utf-8-sig") as f:
+        return list(csv.DictReader(f))
+
+tests = load_tests("tests.csv")
 
 passed = 0
 for test in tests:
@@ -27,6 +26,7 @@ for test in tests:
         passed += 1
         print("PASS: ", test["question"])
     else:
-        print("FAIL: ", test["question"], "->", answer)
+        print("FAIL:", test["question"], "| expected:", repr(test["expected"]), "| got:", answer)
 
 print(f"\nScore: {passed}/{len(tests)} tests passed.")
+
