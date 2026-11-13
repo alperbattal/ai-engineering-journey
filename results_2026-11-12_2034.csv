@@ -1,0 +1,7 @@
+﻿question,expected,answer,result
+How many days do I have to return a bike?,30 days,"You have 30 days from the date of purchase to return a bike, and you'll need your receipt. If you have other questions, call us at 555-0142.",PASS
+What time do you open on Saturday?,9,We open at 9 am on Saturdays and close at 6 pm. See you then!,PASS
+How much does a flat tire repair cost?,$15,A flat tire repair is $15. Let me know if you'd like to know anything else!,PASS
+How much is a basic tune-up?,$79,A basic tune-up at BrightBike is $79. Let me know if you'd like to know anything else!,PASS
+I want to talk to a real person.,555-0142,"Of course! You can reach a real person by calling 555-0142. Our hours are Monday to Friday 10 am to 7 pm, Saturday 9 am to 6 pm, and we're closed Sunday.",PASS
+Do you sell skateboards?,555-0142,"I'm sorry, I don't have information on whether we sell skateboards. Please call us at 555-0142 and our team can tell you for sure.",PASS

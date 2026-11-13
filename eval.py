@@ -3,11 +3,13 @@ from datetime import datetime
 import anthropic
 
 client = anthropic.Anthropic()
+SYSTEM_PROMPT = open("agent_prompt.txt", encoding="utf-8").read()
 
 def ask(question):
     message = client.messages.create(
         model="claude-sonnet-5-5",
         max_tokens=1000,
+        system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": question}],
     )
     return "".join(b.text for b in message.content if b.type == "text")
@@ -24,7 +26,7 @@ def save_results(results):
         writer.writerows(results)
     return filename
 
-tests = load_tests("tests.csv")
+tests = load_tests("agent_tests.csv")
 results = []
 passed = 0
 

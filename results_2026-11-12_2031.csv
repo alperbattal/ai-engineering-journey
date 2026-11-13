@@ -1,0 +1,16 @@
+﻿question,expected,answer,result
+How many days do I have to return a bike?,30 days,"Thanks for asking! I don't have the exact return window for bikes on hand, and I don't want to give you the wrong number. The quickest way to confirm is to call or stop by the shop, or check your receipt, since the policy is often listed there.
+
+If you tell me a bit about your purchase, like whether it's new or used and when you bought it, I can point you in the right direction.",FAIL
+What time do you open on Saturday?,9,"Thanks for reaching out! I don't have our Saturday hours in front of me, so I don't want to give you the wrong time. Please check our website or Google listing, or call the shop directly to confirm.
+
+Is there anything else I can help with, like bike repairs, accessories, or sizing?",FAIL
+How much does a flat tire repair cost?,$15,"Thanks for reaching out to BrightBike! I don't have our current flat repair pricing on hand, and I don't want to give you a wrong number. Prices can also vary depending on the tire size and whether you need just a tube or a tire replacement.
+
+For an accurate quote, please call or stop by the shop in Cumming. We're happy to take a look and give you an estimate. 🚲",FAIL
+How much is a basic tune-up?,$79,"Thanks for reaching out to BrightBike! I don't have our current tune-up pricing in front of me, and I don't want to give you a wrong number. Prices can also vary depending on the type of bike and what it needs.
+
+The quickest way to get an accurate quote is to call or stop by the shop in Cumming. If you tell me what kind of bike you have and any issues you've noticed, I can help point you toward the right service.",FAIL
+I want to talk to a real person.,555-0142,"I'm an AI assistant, so I'm not a real person, and I understand wanting one. I don't have the shop's direct phone number or staff hours here, so I can't give you those without guessing. The best way to reach someone is to call or stop by the BrightBike shop in Cumming, or use the contact info on our website or Google listing.
+
+If you tell me what you need, I'm happy to try to help in the meantime, or I can summarize your question so it's easy to pass along to the team.",FAIL
