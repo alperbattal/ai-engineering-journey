@@ -1,12 +1,17 @@
 import csv
+import sys
 from datetime import datetime
+from pathlib import Path
 import anthropic
 
 client = anthropic.Anthropic()
 MODEL = "claude-sonnet-5-5"
-SYSTEM_PROMPT = open("agent_prompt.txt", encoding="utf-8").read()
-FACTS = open("shop_facts.txt", encoding="utf-8").read()
-SYSTEM_PROMPT = SYSTEM_PROMPT + "\n\nShop information:\n" + FACTS
+
+agent = sys.argv[1] if len(sys.argv) > 1 else "brightbike"
+folder = Path("agents") / agent
+RULES = (folder / "prompt.txt").read_text(encoding="utf-8")
+FACTS = (folder / "facts.txt").read_text(encoding="utf-8")
+SYSTEM_PROMPT = RULES + "\n\nBusiness information:\n" + FACTS
 
 def get_text(message):
     return "".join(b.text for b in message.content if b.type == "text")
@@ -21,7 +26,7 @@ def ask(question):
 def judge(question, expected, answer):
     prompt = f"""You are a strict grader checking a customer support agent.
 
-The only true facts about the shop:
+The only true facts about the business:
 {FACTS}
 
 Customer question: {question}
@@ -44,17 +49,18 @@ def load_tests(path):
         return list(csv.DictReader(f))
 
 def save_results(results):
-    filename = f"results_{datetime.now():%Y-%m-%d_%H%M}.csv"
+    filename = folder / f"results_{datetime.now():%Y-%m-%d_%H%M}.csv"
     with open(filename, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=results[0].keys())
         writer.writeheader()
         writer.writerows(results)
     return filename
 
-tests = load_tests("agent_tests.csv")
+tests = load_tests(folder / "tests.csv")
 results = []
 passed = 0
 
+print(f"Testing agent: {agent} ({len(tests)} tests)\n")
 for test in tests:
     expected = test["expected"].strip().strip('"')
     answer = ask(test["question"])

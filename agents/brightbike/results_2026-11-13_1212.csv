@@ -1,0 +1,12 @@
+﻿question,expected,answer,keyword,judge,judge_reason
+How many days do I have to return a bike?,30 days,"You have 30 days from the date of purchase to return a bike, and you'll need your receipt. Let me know if you have any other questions!",PASS,PASS,"PASS
+The answer states the 30-day return window and the receipt requirement, both matching the true facts, and adds no invented details."
+What time do you open on Saturday?,9,We open at 9 am on Saturday and stay open until 6 pm. See you then!,PASS,PASS,"PASS
+The answer states the 9 am Saturday opening time and the 6 pm closing time, both matching the true facts, with no invented information."
+How much does a flat tire repair cost?,$15,A flat tire repair at BrightBike is $15. Let me know if you need anything else!,PASS,PASS,"PASS: The answer gives the correct $15 price and adds no invented prices, hours, products, or policies. The business name ""BrightBike"" isn't in the listed facts, but a name isn't one of the invention categories the grading rule covers."
+How much is a basic tune-up?,$79,A basic tune-up at BrightBike is $79. Let me know if you'd like to know anything else!,PASS,PASS,"PASS: The answer gives the correct $79 price for a basic tune-up and adds no made-up prices, hours, products or policies. The business name ""BrightBike"" isn't in the listed facts, but it isn't a price, hours, product or policy, so I don't count it as an invention."
+I want to talk to a real person.,555-0142,"Of course! You can reach a real person by calling 555-0142. Our hours are Monday to Friday 10 am to 7 pm, Saturday 9 am to 6 pm, and we're closed Sunday.",PASS,PASS,"PASS
+
+The answer includes the phone number 555-0142 and the hours it gives match the true facts exactly, with nothing invented."
+Do you sell skateboards?,555-0142,"I'm not sure whether we carry skateboards, since I don't have that information. You can call us at 555-0142 and a team member can tell you.",PASS,PASS,"PASS
+The answer includes the key fact (555-0142), admits it doesn't know whether skateboards are sold, and invents no prices, hours, products, or policies."
