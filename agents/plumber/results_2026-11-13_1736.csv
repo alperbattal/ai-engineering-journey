@@ -1,0 +1,37 @@
+﻿question,expected,answer,keyword,judge,judge_reason
+How much is a service call?,$89,"A service call is $89, and it's waived if you approve the repair. A plumber will give you a written quote on site before any work starts.
+
+Would you like to book a visit? You can do that on our website or by calling 555-0177.",PASS,PASS,"PASS: The answer states the $89 service call fee and adds only facts from the business info (waived on approved repair, written quote on site, booking by website or 555-0177), with nothing invented."
+How much does drain cleaning cost?,$149,"Drain cleaning starts at $149. There's also an $89 service call fee, which is waived if you approve the repair. A plumber will give you a written quote on site before any work begins.
+
+Would you like to book a visit? You can do that on our website or by calling 555-0177.",PASS,PASS,"PASS: The answer states that drain cleaning starts at $149, and every other detail (the $89 service call fee waived on approval, the written on-site quote, booking online or at 555-0177) matches the facts given, with nothing invented."
+How much will it cost to fix my leaking pipe?,quote,"Leak repair pricing depends on the job, so I can't give an estimate. A plumber will give you a written quote on site before any work starts.
+
+What I can tell you:
+- The service call fee is $89, and it's waived if you approve the repair.
+- Emergency service is available 24/7 with a $150 after-hours fee.
+
+You can book online on our website or call 555-0177.",PASS,PASS,"PASS: The answer includes the key fact (a plumber gives a written quote on site before work starts), and every other detail (the $89 call fee waived on approval, 24/7 emergency service with a $150 after-hours fee, online booking or 555-0177) matches the stated facts, with nothing invented."
+Are you open on Sunday?,emergency,"We're closed on Sundays for regular service. If you have an emergency, though, we offer 24/7 emergency service with a $150 after-hours fee. You can call us at 555-0177.
+
+Our regular hours are Monday to Friday 8 am to 6 pm, and Saturday 9 am to 2 pm.",PASS,PASS,"PASS
+
+The answer states that Sunday is closed for regular service and mentions 24/7 emergency service with the $150 after-hours fee, and the phone number and regular hours all match the facts, with nothing invented."
+What is the after-hours emergency fee?,$150,"The after-hours emergency fee is $150. Emergency service is available 24/7. To book, call us at 555-0177.",PASS,PASS,"PASS: The answer states the $150 after-hours fee, and the 24/7 emergency availability and the 555-0177 phone number both match the stated facts, with nothing invented."
+Do you install tankless water heaters?,tankless,"Yes, we install and repair both tank and tankless water heaters. Pricing depends on the job, so a plumber gives a written quote on site before any work starts. The service call fee is $89, and it's waived if you approve the repair.
+
+You can book online on our website or call 555-0177.",PASS,PASS,"PASS
+
+The answer confirms tankless installation, and every other detail (tank and tankless repair, on-site written quote, $89 fee waived on approval, online booking or 555-0177) matches the true facts with nothing invented."
+How long is your warranty?,1 year,We offer a 1-year warranty on labor.,FAIL,PASS,"PASS
+
+The answer states the 1-year warranty on labor, which matches the facts, and it adds nothing invented."
+Do you serve Marietta?,555-0177,"Sorry, Marietta isn't in our service area. We serve Cumming, Alpharetta, Milton, Johns Creek and Roswell. If you'd like to double-check, you can call us at 555-0177.",PASS,PASS,"PASS: The answer includes 555-0177 and correctly says Marietta is outside the listed service area (Cumming, Alpharetta, Milton, Johns Creek, Roswell), with no invented details."
+Can you fix my air conditioner?,555-0177,"Sorry, air conditioner repair isn't one of the services we offer. We handle plumbing: drain cleaning, leak repair, water heaters, sewer and gas lines, toilets and faucets, and sump pumps. If you're not sure whether we can help, call us at 555-0177.
+
+Is there a plumbing issue I can help with?",PASS,PASS,"PASS: The answer includes 555-0177 and correctly lists only the real services, and it doesn't invent any prices, hours, or policies."
+I smell gas in my kitchen. What should I do?,leave,"Leave your home right now. Don't use any light switches, appliances, or phones inside, and don't light anything.
+
+Once you're outside and away from the house, call the gas company or 911.
+
+After the area is declared safe, you can call us at 555-0177 for gas line repair. We offer 24/7 emergency service.",PASS,PASS,"PASS: The answer says to leave the home right away, which is the key fact. Everything it says about the business is true (555-0177, gas line repair, 24/7 emergency service). The extra safety tips about appliances, phones and not lighting anything are generic advice consistent with the gas-smell guidance, not invented prices, hours, products or policies."
