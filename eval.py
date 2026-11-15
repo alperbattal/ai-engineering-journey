@@ -8,7 +8,7 @@ import webbrowser
 
 client = anthropic.Anthropic()
 MODEL = "claude-sonnet-5-5"
-
+RUNS = 3
 agent = sys.argv[1] if len(sys.argv) > 1 else "brightbike"
 folder = Path("agents") / agent
 RULES = (folder / "prompt.txt").read_text(encoding="utf-8")
@@ -84,7 +84,7 @@ def save_html_report(results, passed, csv_file):
     for r in results:
         row_class = "disagree" if r["keyword"] != r["judge"] else ""
         rows += f"""<tr class="{row_class}">
-<td>{html.escape(r['question'])}</td>
+<td>{html.escape(r['question'])} (run {r['run']})</td>
 <td>{html.escape(r['expected'])}</td>
 <td>{html.escape(r['answer'])}</td>
 <td class="{r['keyword'].lower()}">{r['keyword']}</td>
@@ -120,18 +120,22 @@ passed = 0
 print(f"Testing agent: {agent} ({len(tests)} tests)\n")
 for test in tests:
     expected = test["expected"].strip().strip('"')
-    answer = ask(test["question"])
-    keyword = "PASS" if expected.lower() in answer.lower() else "FAIL"
-    verdict, reason = judge(test["question"], expected, answer)
-    if verdict == "PASS":
-        passed += 1
-    print(f"keyword {keyword} | judge {verdict}: {test['question']}")
-    results.append({"question": test["question"], "expected": expected,
-                    "answer": answer, "keyword": keyword,
-                    "judge": verdict, "judge_reason": reason})
+    test_passes = 0
+    for run in range(1, RUNS + 1):
+        answer = ask(test["question"])
+        keyword = "PASS" if expected.lower() in answer.lower() else "FAIL"
+        verdict, reason = judge(test["question"], expected, answer)
+        if verdict == "PASS":
+            passed += 1
+            test_passes += 1
+        results.append({"run": run, "question": test["question"], "expected": expected,
+                        "answer": answer, "keyword": keyword,
+                        "judge": verdict, "judge_reason": reason})
+    flaky = "   <-- flaky" if 0 < test_passes < RUNS else ""
+    print(f"{test_passes}/{RUNS} judge passes: {test['question']}{flaky}")
 
 filename = save_results(results)
-print(f"\nJudge score: {passed}/{len(tests)}")
+print(f"\nJudge score: {passed}/{len(results)}")
 print(f"Report saved to {filename}")
 
 report = save_html_report(results, passed, filename)

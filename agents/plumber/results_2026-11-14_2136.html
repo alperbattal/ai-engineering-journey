@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Health Check: plumber</title>
+<style>
+body { font-family: Segoe UI, Arial, sans-serif; margin: 32px; color: #1f2933; background: #fafaf7; }
+h1 { margin-bottom: 4px; }
+.sub { color: #616e7c; margin-top: 0; }
+.cards { display: flex; gap: 16px; margin: 24px 0; }
+.card { background: white; border: 1px solid #e4e7eb; border-radius: 12px; padding: 16px 20px; min-width: 140px; }
+.card b { display: block; font-size: 28px; }
+.bar { height: 14px; background: #f8d7da; border-radius: 7px; overflow: hidden; margin: 8px 0 24px; }
+.bar div { height: 100%; background: #2f9e6e; }
+table { border-collapse: collapse; width: 100%; background: white; }
+th, td { border: 1px solid #e4e7eb; padding: 8px 10px; text-align: left; vertical-align: top; white-space: pre-wrap; }
+th { background: #f0f2f5; }
+td.pass { color: #1b7a50; font-weight: bold; }
+td.fail { color: #b42318; font-weight: bold; }
+tr.disagree { background: #fff6db; }
+</style></head><body>
+<h1>Agent Health Check: plumber</h1>
+<p class="sub">Run November 14, 2026 at 09:36 PM</p>
+<div class="cards">
+  <div class="card">Judge score<b>30/30</b></div>
+  <div class="card">Pass rate<b>100%</b></div>
+  <div class="card">Graders disagree<b>0</b></div>
+</div>
+<div class="bar"><div style="width:100%"></div></div>
+<p class="sub">Highlighted rows: the keyword check and the judge disagree. Review these by hand.</p>
+<table>
+<tr><th>Question</th><th>Expected</th><th>Answer</th><th>Keyword</th><th>Judge</th><th>Judge reason</th></tr>
+<tr class="">
+<td>How much is a service call? (run 1)</td>
+<td>$89</td>
+<td>A service call is $89, and that fee is waived if you approve the repair. A plumber gives a written quote on site before any work starts.
+
+Would you like help booking a visit?</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS
+
+The answer states the $89 service call fee, and the waiver on approved repairs and the written on-site quote both match the facts, with nothing invented.</td>
+</tr><tr class="">
+<td>How much is a service call? (run 2)</td>
+<td>$89</td>
+<td>A service call is $89, and the fee is waived if you approve the repair. A plumber gives a written quote on site before any work starts.
+
+Would you like to book a visit? You can do that on our website or by calling 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS
+
+The answer states the $89 fee and adds only facts from the business info (waived on approval, written on-site quote, booking via website or 555-0177), with nothing invented.</td>
+</tr><tr class="">
+<td>How much is a service call? (run 3)</td>
+<td>$89</td>
+<td>A service call is $89, and the fee is waived if you approve the repair. A plumber will give you a written quote on site before any work starts.
+
+Would you like to book a visit? You can do that on our website or by calling 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS
+
+The answer states the $89 fee and adds only facts from the business info (waived on repair approval, written on-site quote, booking by website or 555-0177), with nothing invented.</td>
+</tr><tr class="">
+<td>How much does drain cleaning cost? (run 1)</td>
+<td>$149</td>
+<td>Drain cleaning starts at $149. The final price depends on the job, and a plumber will give you a written quote on site before any work begins.
+
+There&#x27;s also an $89 service call fee, which is waived if you approve the repair.
+
+You can book online on our website or call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS
+
+The answer states that drain cleaning starts at $149 and adds only facts from the business info: the written on-site quote, the $89 service call fee waived on approval, and the booking options.</td>
+</tr><tr class="">
+<td>How much does drain cleaning cost? (run 2)</td>
+<td>$149</td>
+<td>Drain cleaning starts at $149. The final price depends on the job, and a plumber will give you a written quote on site before any work begins.
+
+There&#x27;s also an $89 service call fee, which is waived if you approve the repair.
+
+Would you like to book a visit? You can do that on our website or by calling 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer states that drain cleaning starts at $149, and everything else it says (written on-site quote, $89 service call fee waived on approval, booking online or at 555-0177) matches the stated facts without inventing anything.</td>
+</tr><tr class="">
+<td>How much does drain cleaning cost? (run 3)</td>
+<td>$149</td>
+<td>Drain cleaning starts at $149. The final price depends on the job, and a plumber will give you a written quote on site before any work begins.
+
+There&#x27;s also an $89 service call fee, which is waived if you approve the repair.
+
+Want to book? You can do it on our website or call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS
+
+The answer states the $149 starting price and everything else it says (on-site written quote, $89 service call fee waived on approval, booking online or at 555-0177) matches the given facts, with nothing invented.</td>
+</tr><tr class="">
+<td>How much will it cost to fix my leaking pipe? (run 1)</td>
+<td>quote</td>
+<td>I can&#x27;t give a price for leak repair because it depends on the job. A plumber will give you a written quote on site before any work starts.
+
+The service call fee is $89, and it&#x27;s waived if you approve the repair.
+
+You can book online on our website or call us at 555-0177. If it&#x27;s an emergency, we offer 24/7 service with a $150 after-hours fee.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS. The answer says a plumber gives a written quote on site before any work starts, and every other detail (the $89 fee and its waiver, online or phone booking, 24/7 emergency service with a $150 after-hours fee) matches the stated facts, with nothing invented.</td>
+</tr><tr class="">
+<td>How much will it cost to fix my leaking pipe? (run 2)</td>
+<td>quote</td>
+<td>Leak repair prices depend on the job, so I can&#x27;t give an estimate. A plumber will give you a written quote on site before any work starts.
+
+The service call fee is $89, and it&#x27;s waived if you approve the repair. If it&#x27;s an emergency outside business hours, there&#x27;s a $150 after-hours fee.
+
+You can book online on our website or call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes the key fact (a written quote on site before work starts) and everything else it says matches the true facts: the $89 service call fee waived on approval, the $150 after-hours emergency fee, and booking online or at 555-0177.</td>
+</tr><tr class="">
+<td>How much will it cost to fix my leaking pipe? (run 3)</td>
+<td>quote</td>
+<td>Leak repair pricing depends on the job, so I can&#x27;t give an estimate. A plumber will give you a written quote on site before any work starts.
+
+The service call fee is $89, and it&#x27;s waived if you approve the repair. If it&#x27;s an emergency outside normal hours, there&#x27;s a $150 after-hours fee, and we offer 24/7 emergency service.
+
+You can book online on our website or call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes the key fact (a written quote from a plumber on site before work starts) and every other detail matches the provided facts, with no invented prices, hours, or policies.</td>
+</tr><tr class="">
+<td>Are you open on Sunday? (run 1)</td>
+<td>24/7</td>
+<td>We&#x27;re closed on Sundays for regular appointments. For emergencies, we offer 24/7 service with a $150 after-hours fee. You can call 555-0177 to reach us.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes the key fact (24/7 emergency service) and everything else matches the business facts: closed Sunday, a $150 after-hours fee, and the phone number 555-0177.</td>
+</tr><tr class="">
+<td>Are you open on Sunday? (run 2)</td>
+<td>24/7</td>
+<td>We&#x27;re closed on Sundays for regular appointments. If it&#x27;s an emergency, though, we offer 24/7 emergency service with a $150 after-hours fee. You can call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS
+
+The answer includes the 24/7 emergency service and states only facts that appear in the business information: closed Sundays, the $150 after-hours fee, and the phone number 555-0177.</td>
+</tr><tr class="">
+<td>Are you open on Sunday? (run 3)</td>
+<td>24/7</td>
+<td>We&#x27;re closed on Sundays for regular appointments. If it&#x27;s an emergency, though, we offer 24/7 emergency service with a $150 after-hours fee. You can call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes the 24/7 emergency service, correctly states Sunday closure, the $150 after-hours fee, and the phone number, with nothing invented.</td>
+</tr><tr class="">
+<td>What is the after-hours emergency fee? (run 1)</td>
+<td>$150</td>
+<td>The after-hours emergency fee is $150. Emergency service is available 24/7. To book, call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer states the $150 after-hours fee, and the 24/7 availability and the 555-0177 phone number both match the stated facts, with nothing invented.</td>
+</tr><tr class="">
+<td>What is the after-hours emergency fee? (run 2)</td>
+<td>$150</td>
+<td>The after-hours emergency fee is $150. Emergency service is available 24/7. To book, call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer states the $150 after-hours fee, and both the 24/7 emergency availability and the 555-0177 phone number match the stated facts, with nothing invented.</td>
+</tr><tr class="">
+<td>What is the after-hours emergency fee? (run 3)</td>
+<td>$150</td>
+<td>The after-hours emergency fee is $150. Emergency service is available 24/7. To book, call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer states the $150 after-hours fee, and the 24/7 emergency availability and the 555-0177 phone number both match the true facts, with nothing invented.</td>
+</tr><tr class="">
+<td>Do you install tankless water heaters? (run 1)</td>
+<td>tankless</td>
+<td>Yes, we install both tank and tankless water heaters. Pricing depends on the job, so a plumber will give you a written quote on site before any work starts. The service call fee is $89, and it&#x27;s waived if you approve the repair.
+
+You can book online on our website or call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer confirms tankless installation, and every detail (job-dependent pricing, written on-site quote, $89 fee waived on approval, online booking or 555-0177) matches the facts, with nothing invented.</td>
+</tr><tr class="">
+<td>Do you install tankless water heaters? (run 2)</td>
+<td>tankless</td>
+<td>Yes, we install both tank and tankless water heaters. Pricing depends on the job, so a plumber gives a written quote on site before any work starts. You can book online on our website or call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS
+
+The answer confirms tankless installation, and everything else it says (job-dependent pricing, written on-site quote, online booking, phone 555-0177) matches the given facts with nothing invented.</td>
+</tr><tr class="">
+<td>Do you install tankless water heaters? (run 3)</td>
+<td>tankless</td>
+<td>Yes, we install and repair both tank and tankless water heaters. Pricing depends on the job, so a plumber gives a written quote on site before any work starts. The service call fee is $89, and it&#x27;s waived if you approve the repair.
+
+You can book online on our website or call 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer confirms tankless installation and repair, and every other detail (on-site written quote, $89 call fee waived on approval, online booking, 555-0177) matches the stated facts with nothing invented.</td>
+</tr><tr class="">
+<td>How long is your warranty? (run 1)</td>
+<td>1-year</td>
+<td>We offer a 1-year warranty on labor. If you have questions about what&#x27;s covered, call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer states the 1-year warranty on labor, and the phone number 555-0177 is a real contact detail, so nothing is invented.</td>
+</tr><tr class="">
+<td>How long is your warranty? (run 2)</td>
+<td>1-year</td>
+<td>We offer a 1-year warranty on labor. If you have questions about what&#x27;s covered, call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer states the 1-year labor warranty and adds only the real phone number, with no invented details.</td>
+</tr><tr class="">
+<td>How long is your warranty? (run 3)</td>
+<td>1-year</td>
+<td>We offer a 1-year warranty on labor. If you have questions about what&#x27;s covered, call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS. The answer states the 1-year labor warranty and adds only the real phone number 555-0177, with nothing invented.</td>
+</tr><tr class="">
+<td>Do you serve Marietta? (run 1)</td>
+<td>555-0177</td>
+<td>Sorry, Marietta isn&#x27;t in our service area. We serve Cumming, Alpharetta, Milton, Johns Creek and Roswell. If you&#x27;d like to double-check, you can call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes 555-0177, correctly says Marietta is outside the listed service area, lists the correct cities, and invents no prices, hours, or policies.</td>
+</tr><tr class="">
+<td>Do you serve Marietta? (run 2)</td>
+<td>555-0177</td>
+<td>Marietta isn&#x27;t in our service area. We serve Cumming, Alpharetta, Milton, Johns Creek, and Roswell. If you&#x27;d like to double-check, you can call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes 555-0177 and correctly says Marietta is outside the listed service area (Cumming, Alpharetta, Milton, Johns Creek, Roswell), with no invented details.</td>
+</tr><tr class="">
+<td>Do you serve Marietta? (run 3)</td>
+<td>555-0177</td>
+<td>Marietta isn&#x27;t on our service area list. We serve Cumming, Alpharetta, Milton, Johns Creek, and Roswell. If you&#x27;d like to double-check for your address, you can call us at 555-0177.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes 555-0177 and correctly says Marietta isn&#x27;t in the listed service area, with no invented prices, hours, or policies.</td>
+</tr><tr class="">
+<td>Can you fix my air conditioner? (run 1)</td>
+<td>555-0177</td>
+<td>Sorry, we don&#x27;t service air conditioners. We&#x27;re a plumbing company, so we handle things like drain cleaning, leaks, water heaters, sewer and gas lines, toilets, faucets, and sump pumps.
+
+If you have a plumbing issue, I&#x27;m happy to help. You can also call us at 555-0177 with any questions.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes 555-0177, and the services it lists match the business facts. Saying air conditioners aren&#x27;t serviced is a fair inference from the service list, and it adds no invented prices, hours, or policies.</td>
+</tr><tr class="">
+<td>Can you fix my air conditioner? (run 2)</td>
+<td>555-0177</td>
+<td>Sorry, we don&#x27;t service air conditioners. We&#x27;re a plumbing company, so we handle things like drain cleaning, leak repair, water heaters, sewer and gas lines, toilets, faucets, and sump pumps.
+
+If you have a plumbing issue, I&#x27;m happy to help. You can also call us at 555-0177 with any questions.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes 555-0177 and invents nothing. Its statement that air conditioners aren&#x27;t serviced follows from the services list, and the services it names all match the true facts.</td>
+</tr><tr class="">
+<td>Can you fix my air conditioner? (run 3)</td>
+<td>555-0177</td>
+<td>Sorry, we don&#x27;t offer air conditioner repair. We&#x27;re a plumbing company, so we handle things like drain cleaning, leak repair, water heaters, sewer and gas lines, toilets, faucets, and sump pumps.
+
+If you have a plumbing issue, I&#x27;m happy to help. You can also call us at 555-0177 with any questions.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer includes 555-0177 and correctly says AC repair isn&#x27;t offered, listing only services from the true facts, with no invented prices, hours, or policies.</td>
+</tr><tr class="">
+<td>I smell gas in my kitchen. What should I do? (run 1)</td>
+<td>leave</td>
+<td>**Leave your home right now.** Don&#x27;t use any light switches, appliances, or phones inside, and don&#x27;t turn anything on or off.
+
+Once you&#x27;re outside, call the gas company or 911.
+
+After you&#x27;re safe and the gas company has cleared the home, we can help with gas line repair. Call us at 555-0177, and emergency service is available 24/7.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer says to leave the home, gives the correct gas company/911 and no-light-switch guidance, and only mentions true business facts (gas line repair, 555-0177, 24/7 emergency service). The extra advice about appliances and phones is general safety guidance, not an invented price, hour, product or policy.</td>
+</tr><tr class="">
+<td>I smell gas in my kitchen. What should I do? (run 2)</td>
+<td>leave</td>
+<td>**Leave your home right now.** Don&#x27;t use any light switches, appliances, or phones inside, since a spark could be dangerous.
+
+Once you&#x27;re outside, call the gas company or 911.
+
+After you&#x27;re safe and the gas company has cleared the home, we can help with gas line repair. Call us at 555-0177, and we offer 24/7 emergency service.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer tells the customer to leave immediately and to call the gas company or 911 from outside, and it invents no prices, hours, products or policies. The added advice about appliances and phones is general safety guidance, not a made-up business fact.</td>
+</tr><tr class="">
+<td>I smell gas in my kitchen. What should I do? (run 3)</td>
+<td>leave</td>
+<td>**Leave your home right now.** Don&#x27;t use any light switches, appliances, or phones inside, and don&#x27;t open or close anything electrical on your way out.
+
+Once you&#x27;re outside, call the gas company or 911.
+
+After the gas company says it&#x27;s safe, you can call us at 555-0177 for gas line repair. We offer 24/7 emergency service.</td>
+<td class="pass">PASS</td>
+<td class="pass">PASS</td>
+<td>PASS: The answer tells the customer to leave immediately and to call the gas company or 911 from outside. The extra safety advice (no appliances or phones inside) adds no made-up prices, hours, products or policies, and the 24/7 emergency service and 555-0177 number match the facts.</td>
+</tr>
+</table></body></html>
