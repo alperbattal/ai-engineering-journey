@@ -3,6 +3,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 import anthropic
+import html
+import webbrowser
 
 client = anthropic.Anthropic()
 MODEL = "claude-sonnet-5-5"
@@ -56,6 +58,61 @@ def save_results(results):
         writer.writerows(results)
     return filename
 
+STYLE = """
+body { font-family: Segoe UI, Arial, sans-serif; margin: 32px; color: #1f2933; background: #fafaf7; }
+h1 { margin-bottom: 4px; }
+.sub { color: #616e7c; margin-top: 0; }
+.cards { display: flex; gap: 16px; margin: 24px 0; }
+.card { background: white; border: 1px solid #e4e7eb; border-radius: 12px; padding: 16px 20px; min-width: 140px; }
+.card b { display: block; font-size: 28px; }
+.bar { height: 14px; background: #f8d7da; border-radius: 7px; overflow: hidden; margin: 8px 0 24px; }
+.bar div { height: 100%; background: #2f9e6e; }
+table { border-collapse: collapse; width: 100%; background: white; }
+th, td { border: 1px solid #e4e7eb; padding: 8px 10px; text-align: left; vertical-align: top; white-space: pre-wrap; }
+th { background: #f0f2f5; }
+td.pass { color: #1b7a50; font-weight: bold; }
+td.fail { color: #b42318; font-weight: bold; }
+tr.disagree { background: #fff6db; }
+"""
+
+def save_html_report(results, passed, csv_file):
+    total = len(results)
+    pct = round(passed / total * 100)
+    disagree = sum(1 for r in results if r["keyword"] != r["judge"])
+
+    rows = ""
+    for r in results:
+        row_class = "disagree" if r["keyword"] != r["judge"] else ""
+        rows += f"""<tr class="{row_class}">
+<td>{html.escape(r['question'])}</td>
+<td>{html.escape(r['expected'])}</td>
+<td>{html.escape(r['answer'])}</td>
+<td class="{r['keyword'].lower()}">{r['keyword']}</td>
+<td class="{r['judge'].lower()}">{r['judge']}</td>
+<td>{html.escape(r['judge_reason'])}</td>
+</tr>"""
+
+    page = f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Health Check: {agent}</title>
+<style>{STYLE}</style></head><body>
+<h1>Agent Health Check: {agent}</h1>
+<p class="sub">Run {datetime.now():%B %d, %Y at %I:%M %p}</p>
+<div class="cards">
+  <div class="card">Judge score<b>{passed}/{total}</b></div>
+  <div class="card">Pass rate<b>{pct}%</b></div>
+  <div class="card">Graders disagree<b>{disagree}</b></div>
+</div>
+<div class="bar"><div style="width:{pct}%"></div></div>
+<p class="sub">Highlighted rows: the keyword check and the judge disagree. Review these by hand.</p>
+<table>
+<tr><th>Question</th><th>Expected</th><th>Answer</th><th>Keyword</th><th>Judge</th><th>Judge reason</th></tr>
+{rows}
+</table></body></html>"""
+
+    report = Path(str(csv_file).replace(".csv", ".html"))
+    report.write_text(page, encoding="utf-8")
+    webbrowser.open(report.resolve().as_uri())
+    return report
 tests = load_tests(folder / "tests.csv")
 results = []
 passed = 0
@@ -76,3 +133,6 @@ for test in tests:
 filename = save_results(results)
 print(f"\nJudge score: {passed}/{len(tests)}")
 print(f"Report saved to {filename}")
+
+report = save_html_report(results, passed, filename)
+print(f"Visual report: {report}")
