@@ -33,21 +33,27 @@ with open(test_file, newline="", encoding="utf-8-sig") as f:
     tests = list(csv.DictReader(f))
 
 retrieval_ok_count = 0
+retrieval_total = 0
 judge_pass_count = 0
 
 for t in tests:
     top, reply = answer(t["question"], chunks, vectors)
     found = [i for score, i in top]
+    verdict, reason = judge(t["question"], t["expected"], reply)
+    judge_pass_count += verdict == "PASS"
+
     if t["chunk"] == "none":
-        retrieval_ok = not found
+        status = "N/A "
     else:
         needed = [int(c) for c in t["chunk"].split(";")]
         retrieval_ok = all(c in found for c in needed)
-    verdict, reason = judge(t["question"], t["expected"], reply)
+        retrieval_total += 1
+        retrieval_ok_count += retrieval_ok
+        status = "OK  " if retrieval_ok else "MISS"
 
-    retrieval_ok_count += retrieval_ok
-    judge_pass_count += verdict == "PASS"
-    status = "OK  " if retrieval_ok else "MISS"
     print(f"retrieval {status} | judge {verdict}: {t['question']}  (found {found})")
     if verdict == "FAIL":
         print("   why:", reason)
+
+print(f"\nRetrieval: {retrieval_ok_count}/{retrieval_total}  (questions the handbook answers)")
+print(f"Answers:   {judge_pass_count}/{len(tests)}  (all questions)")
