@@ -4,6 +4,8 @@ import os
 import urllib.request
 from pathlib import Path
 import anthropic
+import time
+from urllib.error import HTTPError
 
 client = anthropic.Anthropic()
 MODEL = "claude-sonnet-5-5"
@@ -22,8 +24,17 @@ def embed(texts, input_type):
         headers={"Authorization": f"Bearer {os.environ['VOYAGE_API_KEY']}",
                  "Content-Type": "application/json"},
     )
-    with urllib.request.urlopen(request) as response:
-        data = json.load(response)
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(request) as response:
+                data = json.load(response)
+            break
+        except HTTPError as error:
+            if error.code != 429 or attempt == 4:
+                raise
+            wait = 20 * (attempt + 1)
+            print(f"   (rate limited, waiting {wait} seconds...)")
+            time.sleep(wait)
     items = sorted(data["data"], key=lambda d: d["index"])
     return [item["embedding"] for item in items]
 
@@ -65,14 +76,15 @@ Question: {question}"""
     )
     return top, "".join(b.text for b in message.content if b.type == "text")
 
-chunks = load_chunks("handbook.txt")
-vectors = load_index(chunks)
-print(f"Loaded {len(chunks)} chunks. Ask a question (or type 'quit').")
+if __name__ == "__main__":
+    chunks = load_chunks("handbook.txt")
+    vectors = load_index(chunks)
+    print(f"Loaded {len(chunks)} chunks. Ask a question (or type 'quit').")
 
-while True:
-    question = input("\nYou: ")
-    if question.lower() == "quit":
-        break
-    top, text = answer(question, chunks, vectors)
-    print("(retrieved: " + ", ".join(f"[{i}] {score:.2f}" for score, i in top) + ")")
-    print(text)
+    while True:
+        question = input("\nYou: ")
+        if question.lower() == "quit":
+            break
+        top, text = answer(question, chunks, vectors)
+        print("(retrieved: " + ", ".join(f"[{i}] {score:.2f}" for score, i in top) + ")")
+        print(text)
