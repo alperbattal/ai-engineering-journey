@@ -64,7 +64,7 @@ def answer(question, chunks, vectors):
     sources = "\n\n".join(f"[{i}] {chunks[i]}" for score, i in top)
     prompt = f"""Answer the question using only the sources below.
 Put the source number in brackets, like [2], after each fact you use.
-If the sources don't contain the answer, say you don't know.
+If the sources don't contain the answer, say the handbook doesn't cover it. Don't describe what the sources do cover.
 
 Sources:
 {sources}

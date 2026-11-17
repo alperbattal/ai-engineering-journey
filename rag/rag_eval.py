@@ -1,6 +1,7 @@
 import csv
 from pathlib import Path
 from rag_semantic import load_chunks, load_index, answer, client, MODEL
+import sys
 
 HANDBOOK = Path("handbook.txt").read_text(encoding="utf-8")
 
@@ -26,7 +27,9 @@ Reply with PASS or FAIL on the first line, then one short sentence why."""
 
 chunks = load_chunks("handbook.txt")
 vectors = load_index(chunks)
-with open("rag_tests.csv", newline="", encoding="utf-8-sig") as f:
+
+test_file = sys.argv[1] if len(sys.argv) > 1 else "rag_tests.csv"
+with open(test_file, newline="", encoding="utf-8-sig") as f:
     tests = list(csv.DictReader(f))
 
 retrieval_ok_count = 0
@@ -38,7 +41,8 @@ for t in tests:
     if t["chunk"] == "none":
         retrieval_ok = not found
     else:
-        retrieval_ok = int(t["chunk"]) in found
+        needed = [int(c) for c in t["chunk"].split(";")]
+        retrieval_ok = all(c in found for c in needed)
     verdict, reason = judge(t["question"], t["expected"], reply)
 
     retrieval_ok_count += retrieval_ok
@@ -47,6 +51,3 @@ for t in tests:
     print(f"retrieval {status} | judge {verdict}: {t['question']}  (found {found})")
     if verdict == "FAIL":
         print("   why:", reason)
-
-print(f"\nRetrieval: {retrieval_ok_count}/{len(tests)}")
-print(f"Answers:   {judge_pass_count}/{len(tests)}")

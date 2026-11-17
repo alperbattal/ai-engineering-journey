@@ -1,0 +1,13 @@
+question,expected,chunk
+Am I allowed to take the truck home on weekends?,job use,2
+Is there a dress code?,company shirt,9
+How much notice do I need to give before taking a day off?,two weeks,5
+Will the company help me get my plumbing license?,"$1,000",6
+How am I paid for emergency jobs during my on-call week?,hourly,1
+Can I start a $2500 job if the customer agrees to the quote?,manager approval,7
+What do I need to do before working on a gas line?,gas detector,3
+I'm on call and smell gas at a customer's house. Who do I call?,gas company,4
+What are my work hours and how much time off do I get?,15,0;5
+How many sick days do I get?,don't know,none
+What is the overtime pay rate?,don't know,none
+Do I get a company phone?,don't know,none
