@@ -1,8 +1,5 @@
 from pathlib import Path
 
-text = Path("handbook.txt").read_text(encoding="utf-8")
-text = " ".join(text.split()) 
-
 def chunk_words(text, size, overlap):
     words = text.split()
     chunks = []
@@ -16,7 +13,12 @@ def chunk_words(text, size, overlap):
         start += size - overlap
     return chunks
 
-chunks = chunk_words(text, 40, 10)
-print(f"{len(chunks)}chunks")
-for i,c in enumerate(chunks):
-    print(f"\n[{i}] {c}")
+if __name__ == "__main__":
+    text = Path("handbook.txt").read_text(encoding="utf-8") 
+    text = " ".join(text.split())
+
+    chunks = chunk_words(text, 40, 10)
+    print(f"{len(chunks)} chunks")
+    for i,c in enumerate(chunks):
+        print(f"\n[{i}] {c}")
+
