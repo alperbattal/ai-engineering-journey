@@ -1,0 +1,6 @@
+Daniel Okafor - AI Solutions Engineer (fictional sample resume)
+Summary: Engineer with 3 years of experience building chatbots and AI assistants in Python for a logistics company.
+Experience: Built a retrieval-augmented support assistant that answers from 2,000 internal documents. Wrote evaluation tests that measure answer accuracy on every release. Deployed services on AWS Lambda.
+Skills: Python, embeddings, vector databases, prompt engineering, AWS, Docker.
+Certifications: AWS Certified Cloud Practitioner.
+Education: BS in Information Systems.

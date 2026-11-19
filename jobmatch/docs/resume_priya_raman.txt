@@ -1,0 +1,6 @@
+Priya Raman - Salesforce Administrator and Agentforce Specialist (fictional sample resume)
+Summary: Salesforce administrator with 7 years of experience at a healthcare nonprofit, recently focused on AI agents.
+Experience: Configured Agentforce topics and actions for a member-support agent. Set up Data Cloud data streams to ground the agent in member data. Built Flows and reports for 150 users. Trains staff on new features.
+Skills: Agentforce, Data Cloud, Flow, reports and dashboards, user training.
+Certifications: Salesforce Administrator, Agentforce Specialist.
+Education: BA in Business.

@@ -1,0 +1,3 @@
+Job posting: AI Engineer, Retrieval and Evals at Northwind Labs (fictional company)
+Build retrieval-augmented assistants in Python. You will design chunking and embedding pipelines, write evals to measure answer quality, and deploy services on AWS.
+Requirements: 2+ years of Python, experience with embeddings or vector databases, cloud deployment experience. Hybrid, Atlanta.

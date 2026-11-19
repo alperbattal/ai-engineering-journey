@@ -1,0 +1,3 @@
+Job posting: Senior Agentforce Engineer at Brightline Health (fictional company)
+We need an engineer to design and build AI agents on Salesforce Agentforce. You will write Apex actions, ground agents in Data Cloud, and test agent answers before release.
+Requirements: 4+ years of Salesforce development, Apex, experience with Agentforce or another AI agent platform. Data Cloud experience is a plus. Remote, US.

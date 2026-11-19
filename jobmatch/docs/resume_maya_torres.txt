@@ -1,0 +1,6 @@
+Maya Torres - Salesforce Developer (fictional sample resume)
+Summary: Salesforce developer with 5 years of experience building Apex triggers, Lightning Web Components and integrations for a retail company.
+Experience: Built REST integrations between Salesforce and an order system. Led the move from Classic to Lightning for 300 users. Wrote unit tests with 90% code coverage.
+Skills: Apex, LWC, SOQL, REST APIs, Git.
+Certifications: Platform Developer I, Platform Developer II.
+Education: BS in Computer Science.
