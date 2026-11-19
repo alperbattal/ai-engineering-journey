@@ -2,6 +2,7 @@ import csv
 from pathlib import Path
 from rag_semantic import load_chunks, load_index, answer, client, MODEL
 import sys
+from chunking import chunk_words
 
 HANDBOOK = Path("handbook.txt").read_text(encoding="utf-8")
 
@@ -14,7 +15,7 @@ The full handbook (the only truth):
 Question: {question}
 Key fact the answer must contain: {expected}
 Assistant's answer: {reply}
-
+Ignore source numbers in brackets like [3]; they refer to search results, not the handbook.
 Grade PASS only if the answer contains the key fact AND invents nothing that
 is not in the handbook. Otherwise grade FAIL.
 Reply with PASS or FAIL on the first line, then one short sentence why."""
@@ -25,7 +26,17 @@ Reply with PASS or FAIL on the first line, then one short sentence why."""
     text = "".join(b.text for b in message.content if b.type == "text").strip()
     return ("PASS" if text.upper().startswith("PASS") else "FAIL"), text
 
-chunks = load_chunks("handbook.txt")
+size = int(sys.argv[2]) if len(sys.argv) > 2 else None
+
+if size:
+    text = Path("handbook.txt").read_text(encoding="utf-8")
+    text = " ".join(text.split())
+    chunks = chunk_words(text, size, size // 4)
+else:
+    chunks = load_chunks("handbook.txt")
+
+print(f"Using {len(chunks)} chunks")
+
 vectors = load_index(chunks)
 
 test_file = sys.argv[1] if len(sys.argv) > 1 else "rag_tests.csv"
@@ -45,8 +56,8 @@ for t in tests:
     if t["chunk"] == "none":
         status = "N/A "
     else:
-        needed = [int(c) for c in t["chunk"].split(";")]
-        retrieval_ok = all(c in found for c in needed)
+        fact = t["expected"].lower()
+        retrieval_ok = any(fact in chunks[i].lower() for i in found)
         retrieval_total += 1
         retrieval_ok_count += retrieval_ok
         status = "OK  " if retrieval_ok else "MISS"

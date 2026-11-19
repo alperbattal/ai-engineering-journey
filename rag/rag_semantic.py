@@ -65,6 +65,7 @@ def answer(question, chunks, vectors):
     prompt = f"""Answer the question using only the sources below.
 Put the source number in brackets, like [2], after each fact you use.
 If the sources don't contain the answer, say the handbook doesn't cover it. Don't describe what the sources do cover.
+Don't mention that sources are cut off or incomplete.
 
 Sources:
 {sources}
