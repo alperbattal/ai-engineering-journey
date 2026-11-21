@@ -64,7 +64,6 @@ def search_fair(question, per_file=2):
 def ask(question):
     # Step 1, the librarian: find the 5 most related pieces
     top = search_fair(question)
-        
     # Build the "Documents" text for Claude: one block per found piece,
     # labeled with its FILE NAME so Claude can cite it. For example:
     #   [resume_daniel_okafor.txt] Daniel Okafor - AI Solutions Engineer...
@@ -85,12 +84,13 @@ Question: {question}"""
 
     # Send the prompt to Claude
     message = client.messages.create(
-        model=MODEL, max_tokens=1000,
+        model=MODEL, max_tokens=2000,
         messages=[{"role": "user", "content": prompt}],
     )
 
     # Return two things: what was found (for printing) and Claude's answer.
     # The join keeps only the text blocks, skipping any thinking blocks.
+    print(f"(stop reason: {message.stop_reason}, output tokens: {message.usage.output_tokens})")
     return top, "".join(b.text for b in message.content if b.type == "text")
 
 
