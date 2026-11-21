@@ -61,35 +61,63 @@ def search_fair(question, per_file=2):
     top.sort(reverse=True)
     return top
 
+def classify(question):
+    # Ask Claude what KIND of question this is, before searching anything
+    prompt = f"""Classify this question about resumes and job postings.
+Reply with exactly one word:
+lookup  - asks for a specific fact (who has a skill, what a job requires)
+compare - asks to compare, rank or choose between candidates or jobs
+
+Question: {question}"""
+
+    # A short request: we only need one word back.
+    # (Thinking can still use part of this budget, so it isn't tiny.)
+    message = client.messages.create(
+        model=MODEL, max_tokens=1000,
+        messages=[{"role": "user", "content": prompt}],
+    )
+
+    # Keep only the text blocks, remove spaces and make it lowercase
+    word = "".join(b.text for b in message.content if b.type == "text").strip().lower()
+
+    # If Claude clearly says "lookup", use plain search.
+    # For anything else, use fair search: it's the safer choice,
+    # because it never leaves a document out. It just costs a bit more.
+    return "lookup" if word.startswith("lookup") else "compare"
+
 def ask(question):
-    # Step 1, the librarian: find the 5 most related pieces
-    top = search_fair(question)
-    # Build the "Documents" text for Claude: one block per found piece,
-    # labeled with its FILE NAME so Claude can cite it. For example:
-    #   [resume_daniel_okafor.txt] Daniel Okafor - AI Solutions Engineer...
-    # The blocks are joined with a blank line ("\n\n") between them.
+    # Step 0, the router: decide what kind of question this is
+    kind = classify(question)
+
+    # Pick the search strategy AND the answer length to match
+    if kind == "compare":
+        top = search_fair(question)   # best pieces from every file
+        budget = 2000                 # comparisons need room
+    else:
+        top = search(question)        # top 5 most related pieces
+        budget = 1000                 # lookups are short
+
+    print(f"(question type: {kind})")
+
+    # Build the documents block, same as before
     sources = "\n\n".join(
         f"[{pieces[i]['source']}] {pieces[i]['text']}" for score, i in top
     )
 
-    # Step 2, the writer: the instructions for Claude, with the documents inserted
     prompt = f"""Answer the question using only the documents below.
 After each fact, cite the file it came from in brackets, like [resume_maya_torres.txt].
 If the documents don't contain the answer, say so.
+Don't mention that documents are cut off or incomplete.
 
 Documents:
 {sources}
 
 Question: {question}"""
 
-    # Send the prompt to Claude
     message = client.messages.create(
-        model=MODEL, max_tokens=2000,
+        model=MODEL, max_tokens=budget,   # the budget chosen above
         messages=[{"role": "user", "content": prompt}],
     )
-
-    # Return two things: what was found (for printing) and Claude's answer.
-    # The join keeps only the text blocks, skipping any thinking blocks.
     print(f"(stop reason: {message.stop_reason}, output tokens: {message.usage.output_tokens})")
     return top, "".join(b.text for b in message.content if b.type == "text")
 
