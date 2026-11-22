@@ -65,9 +65,9 @@ def classify(question):
     # Ask Claude what KIND of question this is, before searching anything
     prompt = f"""Classify this question about resumes and job postings.
 Reply with exactly one word:
-lookup  - asks for a specific fact (who has a skill, what a job requires)
-compare - asks to compare, rank or choose between candidates or jobs
-
+lookup  - the answer is in one or two places (a specific fact, skill or requirement)
+compare - needs information from every candidate or job: comparing, ranking,
+          choosing, or listing or summarizing all of them
 Question: {question}"""
 
     # A short request: we only need one word back.
@@ -123,16 +123,11 @@ Question: {question}"""
 
 
 # The chat loop: keep asking until you type quit
-while True:
-    question = input("\nQuestion: ")
-    if question.lower() == "quit":
-        break
-
-    top, reply = ask(question)
-
-    # Show which files the librarian picked and their scores, e.g.
-    # (found: resume_daniel_okafor.txt 0.52, job_ai_engineer.txt 0.48, ...)
-    print("(found: " + ", ".join(f"{pieces[i]['source']} {score:.2f}" for score, i in top) + ")")
-
-    # Show Claude's answer
-    print(reply)
+if __name__ == "__main__":
+    while True:
+        question = input("\nQuestion: ")
+        if question.lower() == "quit":
+            break
+        top, reply = ask(question)
+        print("(found: " + ", ".join(f"{pieces[i]['source']} {score:.2f}" for score, i in top) + ")")
+        print(reply)
