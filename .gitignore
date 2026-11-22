@@ -1,0 +1,9 @@
+# Eval reports: generated on every run, not source code
+results_*.csv
+results_*.html
+
+# Embedding caches: rebuilt automatically when needed
+embeddings.json
+
+# Python's temporary compiled files
+__pycache__/
