@@ -1,12 +1,16 @@
 question,expected
-Who knows AWS?,lookup
+Who knows AWS?,compare
 What does the Agentforce job require?,lookup
 Does Maya have any certifications?,lookup
-Which jobs are remote?,lookup
-Who has Data Cloud experience?,lookup
+Which jobs are remote?,compare
+Who has Data Cloud experience?,compare
 Rank the three candidates for the AI Engineer job.,compare
 Is Maya or Priya better for the Agentforce role?,compare
 Who is the best fit for the AI Engineer job?,compare
 Which job is a better match for Daniel?,compare
 Who has the most Salesforce experience?,compare
 List every candidate's certifications.,compare
+What degree does Daniel have?,lookup
+Which candidates have a computer science degree?,compare
+How many years of Python does the AI Engineer job require?,lookup
+Summarize all three resumes in one sentence each.,compare
