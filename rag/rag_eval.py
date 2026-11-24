@@ -3,6 +3,10 @@ from pathlib import Path
 from rag_semantic import load_chunks, load_index, answer, ask_claude
 import sys
 from chunking import chunk_words
+import os                 # read settings from environment variables
+import json               # turn the cloud's JSON reply into a dict
+import urllib.request     # call the cloud web address
+import urllib.parse       # build a safe web address from the question and token
 
 HANDBOOK = Path("handbook.txt").read_text(encoding="utf-8")
 
@@ -22,6 +26,24 @@ is not in the handbook. Otherwise grade FAIL.
 Reply with PASS or FAIL on the first line, then one short sentence why."""
     text = ask_claude(prompt).strip()       # one line now, thanks to the helper
     return ("PASS" if text.upper().startswith("PASS") else "FAIL"), text
+
+
+CLOUD_URL = os.environ.get("HANDBOOK_URL")       # your Function URL, if set
+CLOUD_TOKEN = os.environ.get("HANDBOOK_TOKEN")   # your access token, if set
+
+def answer_cloud(question):
+    # urlencode turns spaces, "?" and other characters into a web-safe format,
+    # e.g. "Can I bring my dog?" -> "Can+I+bring+my+dog%3F"
+    query = urllib.parse.urlencode({"q": question, "token": CLOUD_TOKEN})
+
+    # Call your Lambda. timeout=150 gives it longer than its own 2-minute limit.
+    with urllib.request.urlopen(f"{CLOUD_URL}?{query}", timeout=150) as response:
+        data = json.load(response)                # JSON reply -> dict
+
+    # Rebuild the same (score, section) list that answer() returns locally,
+    # so the rest of the eval doesn't need to change
+    top = [(s["score"], s["section"]) for s in data["sources"]]
+    return top, data["answer"]
 
 size = int(sys.argv[2]) if len(sys.argv) > 2 else None
 
@@ -45,7 +67,10 @@ retrieval_total = 0
 judge_pass_count = 0
 
 for t in tests:
-    top, reply = answer(t["question"], chunks, vectors)
+    if CLOUD_URL:
+        top, reply = answer_cloud(t["question"])              # ask the AWS version
+    else:
+        top, reply = answer(t["question"], chunks, vectors)   # ask the laptop version
     found = [i for score, i in top]
     verdict, reason = judge(t["question"], t["expected"], reply)
     judge_pass_count += verdict == "PASS"
