@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from rag_semantic import load_chunks, load_index, answer, client, MODEL
+from rag_semantic import load_chunks, load_index, answer, ask_claude
 import sys
 from chunking import chunk_words
 
@@ -15,15 +15,12 @@ The full handbook (the only truth):
 Question: {question}
 Key fact the answer must contain: {expected}
 Assistant's answer: {reply}
+
 Ignore source numbers in brackets like [3]; they refer to search results, not the handbook.
 Grade PASS only if the answer contains the key fact AND invents nothing that
 is not in the handbook. Otherwise grade FAIL.
 Reply with PASS or FAIL on the first line, then one short sentence why."""
-    message = client.messages.create(
-        model=MODEL, max_tokens=1000,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    text = "".join(b.text for b in message.content if b.type == "text").strip()
+    text = ask_claude(prompt).strip()       # one line now, thanks to the helper
     return ("PASS" if text.upper().startswith("PASS") else "FAIL"), text
 
 size = int(sys.argv[2]) if len(sys.argv) > 2 else None
