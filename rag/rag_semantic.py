@@ -103,7 +103,8 @@ def answer(question, chunks, vectors):
     sources = "\n\n".join(f"[{i}] {chunks[i]}" for score, i in top)
     prompt = f"""Answer the question using only the sources below.
 Put the source number in brackets, like [2], after each fact you use.
-If the sources don't contain the answer, say the handbook doesn't cover it. Don't describe what the sources do cover.
+If a rule in the sources applies to the question, even when the question uses different words (for example "truck" for "van"), answer from that rule and cite it.
+Only if nothing in the sources applies, say the handbook doesn't cover it, without listing what the sources do cover.
 Don't mention that sources are cut off or incomplete.
 
 Sources:
