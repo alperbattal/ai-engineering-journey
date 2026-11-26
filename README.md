@@ -73,6 +73,10 @@ Set two environment variables: `ANTHROPIC_API_KEY` (Claude) and `VOYAGE_API_KEY`
 
 ## Roadmap
 
-- [ ] Deploy the handbook assistant to AWS
+- [x] Deploy the handbook assistant to AWS
 - [ ] Test the job-match router with its own eval
 - [ ] Re-test the judge automatically on every run with known-bad answers
+
+**Deployed on AWS Lambda.** The assistant runs in the cloud with no installed packages: Claude and Voyage are called directly with Python's built-in `urllib`. A token-protected Function URL keeps strangers from using the API, and requests without the right token are rejected before any API call is made.
+
+Every change follows the same cycle: test locally → regression test with the eval → zip → upload → verify in the cloud. `rag_eval.py` can test either version (set `HANDBOOK_URL` and `HANDBOOK_TOKEN` to point it at the cloud).
